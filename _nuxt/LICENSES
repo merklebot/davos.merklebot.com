@@ -1,4 +1,217 @@
 /*!
+  * pinia v2.0.14
+  * (c) 2022 Eduardo San Martin Morote
+  * @license MIT
+  */
+
+/*!
+ * vue-client-only v0.0.0-semantic-release
+ * (c) 2021-present egoist <0x142857@gmail.com>
+ * Released under the MIT License.
+ */
+
+/*!
+ * vue-no-ssr v1.1.1
+ * (c) 2018-present egoist <0x142857@gmail.com>
+ * Released under the MIT License.
+ */
+
+
+/*!
+ * The buffer module from node.js, for the browser.
+ *
+ * @author   Feross Aboukhadijeh <feross@feross.org> <http://feross.org>
+ * @license  MIT
+ */
+
+/*! ../BagReader */
+
+/*! ../bag */
+
+/*! ../index */
+
+/*! ../types */
+
+/*! ./../../../webpack/buildin/global.js */
+
+/*! ./../../node_modules/timers-browserify/main.js */
+
+/*! ./../node_modules/node-libs-browser/node_modules/buffer/index.js */
+
+/*! ./../node_modules/timers-browserify/main.js */
+
+/*! ./../node_modules/webpack/buildin/global.js */
+
+/*! ./../process/browser.js */
+
+/*! ./../webpack/buildin/global.js */
+
+/*! ./BagReader */
+
+/*! ./MessageReader */
+
+/*! ./MessageWriter */
+
+/*! ./ReadResult */
+
+/*! ./TimeUtil */
+
+/*! ./bag */
+
+/*! ./fields */
+
+/*! ./header */
+
+/*! ./lib/heap */
+
+/*! ./nmerge */
+
+/*! ./parseMessageDefinition */
+
+/*! ./record */
+
+/*! ./types */
+
+/*! base64-js */
+
+/*! buffer */
+
+/*! exports provided: MessageReader */
+
+/*! exports provided: MessageWriter */
+
+/*! exports provided: Record, BagHeader, Chunk, Connection, MessageData, IndexData, ChunkInfo */
+
+/*! exports provided: default */
+
+/*! exports provided: extractFields, extractTime */
+
+/*! exports provided: fromDate, toDate, compare, isLessThan, isGreaterThan, areSame, add */
+
+/*! exports provided: parseHeader */
+
+/*! exports provided: rosPrimitiveTypes, parseMessageDefinition */
+
+/*! heap */
+
+/*! ieee754 */
+
+/*! int53 */
+
+/*! isarray */
+
+/*! no static exports found */
+
+/*! setimmediate */
+
+/*!********************!*\
+  !*** ./src/bag.js ***!
+  \********************/
+
+/*!**********************!*\
+  !*** ./src/index.js ***!
+  \**********************/
+
+/*!**********************!*\
+  !*** ./src/types.js ***!
+  \**********************/
+
+/*!***********************!*\
+  !*** ./src/fields.js ***!
+  \***********************/
+
+/*!***********************!*\
+  !*** ./src/header.js ***!
+  \***********************/
+
+/*!***********************!*\
+  !*** ./src/nmerge.js ***!
+  \***********************/
+
+/*!***********************!*\
+  !*** ./src/record.js ***!
+  \***********************/
+
+/*!*************************!*\
+  !*** ./src/TimeUtil.js ***!
+  \*************************/
+
+/*!**************************!*\
+  !*** ./src/BagReader.js ***!
+  \**************************/
+
+/*!**************************!*\
+  !*** ./src/web/index.js ***!
+  \**************************/
+
+/*!***************************!*\
+  !*** ./src/ReadResult.js ***!
+  \***************************/
+
+/*!******************************!*\
+  !*** ./src/MessageReader.js ***!
+  \******************************/
+
+/*!******************************!*\
+  !*** ./src/MessageWriter.js ***!
+  \******************************/
+
+/*!***********************************!*\
+  !*** (webpack)/buildin/global.js ***!
+  \***********************************/
+
+/*!************************************!*\
+  !*** ./node_modules/heap/index.js ***!
+  \************************************/
+
+/*!*************************************!*\
+  !*** ./node_modules/int53/index.js ***!
+  \*************************************/
+
+/*!***************************************!*\
+  !*** ./node_modules/heap/lib/heap.js ***!
+  \***************************************/
+
+/*!***************************************!*\
+  !*** ./node_modules/ieee754/index.js ***!
+  \***************************************/
+
+/*!***************************************!*\
+  !*** ./node_modules/isarray/index.js ***!
+  \***************************************/
+
+/*!***************************************!*\
+  !*** ./src/parseMessageDefinition.js ***!
+  \***************************************/
+
+/*!*****************************************!*\
+  !*** ./node_modules/base64-js/index.js ***!
+  \*****************************************/
+
+/*!*****************************************!*\
+  !*** ./node_modules/process/browser.js ***!
+  \*****************************************/
+
+/*!************************************************!*\
+  !*** ./node_modules/timers-browserify/main.js ***!
+  \************************************************/
+
+/*!***************************************************!*\
+  !*** ./node_modules/setimmediate/setImmediate.js ***!
+  \***************************************************/
+
+/*!*********************************************************************!*\
+  !*** ./node_modules/node-libs-browser/node_modules/buffer/index.js ***!
+  \*********************************************************************/
+
+/**
+ * @license
+ * Copyright 2010-2022 Three.js Authors
+ * SPDX-License-Identifier: MIT
+ */
+
+
+/*!
  * Signature Pad v2.3.2
  * https://github.com/szimek/signature_pad
  *
@@ -732,11 +945,7 @@
 
 /*! ../vue/window.vue */
 
-/*! ./../process/browser.js */
-
 /*! ./../settings */
-
-/*! ./../webpack/buildin/global.js */
 
 /*! ./action */
 
@@ -1620,8 +1829,6 @@
 
 /*! exports provided: applyMetadata */
 
-/*! exports provided: default */
-
 /*! exports provided: default, ActionBarItemDropdownViewModel */
 
 /*! exports provided: default, ActionBarItemViewModel */
@@ -1825,10 +2032,6 @@
 /*! exports provided: unwrap, getSize, sanitizeEditableContent, getElementWidth, isContainerVisible, classesToSelector, compareVersions, confirmAction, detectIEOrEdge, detectIEBrowser, loadFileFromBase64, isMobile, isElementVisible, findScrollableParent, scrollElementByChildId, createSvg, doKey2ClickBlur, doKey2ClickUp, doKey2ClickDown, getIconNameFromProxy, increaseHeightByContent, getOriginalEvent, preventDefaults, findParentByClassNames */
 
 /*! no exports provided */
-
-/*! no static exports found */
-
-/*! setimmediate */
 
 /*! signature_pad */
 
@@ -2303,10 +2506,6 @@
   \**********************************/
 
 /*!***********************************!*\
-  !*** (webpack)/buildin/global.js ***!
-  \***********************************/
-
-/*!***********************************!*\
   !*** ./src/images/ArrowRight.svg ***!
   \***********************************/
 
@@ -2531,10 +2730,6 @@
   \****************************************/
 
 /*!*****************************************!*\
-  !*** ./node_modules/process/browser.js ***!
-  \*****************************************/
-
-/*!*****************************************!*\
   !*** ./src/dragdrop/ranking-choices.ts ***!
   \*****************************************/
 
@@ -2619,10 +2814,6 @@
   \***********************************************/
 
 /*!************************************************!*\
-  !*** ./node_modules/timers-browserify/main.js ***!
-  \************************************************/
-
-/*!************************************************!*\
   !*** ./src/defaultCss/cssbootstrapmaterial.ts ***!
   \************************************************/
 
@@ -2649,10 +2840,6 @@
 /*!**************************************************!*\
   !*** ./src/vue/row.vue?vue&type=script&lang=ts& ***!
   \**************************************************/
-
-/*!***************************************************!*\
-  !*** ./node_modules/setimmediate/setImmediate.js ***!
-  \***************************************************/
 
 /*!***************************************************!*\
   !*** ./src/vue/file.vue?vue&type=script&lang=ts& ***!
@@ -4151,193 +4338,6 @@
   * (c) 2015-present Evan You
   * @license MIT
   */
-
-
-/*!
-  * pinia v2.0.14
-  * (c) 2022 Eduardo San Martin Morote
-  * @license MIT
-  */
-
-/*!
- * vue-client-only v0.0.0-semantic-release
- * (c) 2021-present egoist <0x142857@gmail.com>
- * Released under the MIT License.
- */
-
-/*!
- * vue-no-ssr v1.1.1
- * (c) 2018-present egoist <0x142857@gmail.com>
- * Released under the MIT License.
- */
-
-
-/*!
- * The buffer module from node.js, for the browser.
- *
- * @author   Feross Aboukhadijeh <feross@feross.org> <http://feross.org>
- * @license  MIT
- */
-
-/*! ../BagReader */
-
-/*! ../bag */
-
-/*! ../index */
-
-/*! ../types */
-
-/*! ./../../../webpack/buildin/global.js */
-
-/*! ./../../node_modules/timers-browserify/main.js */
-
-/*! ./../node_modules/node-libs-browser/node_modules/buffer/index.js */
-
-/*! ./../node_modules/timers-browserify/main.js */
-
-/*! ./../node_modules/webpack/buildin/global.js */
-
-/*! ./BagReader */
-
-/*! ./MessageReader */
-
-/*! ./MessageWriter */
-
-/*! ./ReadResult */
-
-/*! ./TimeUtil */
-
-/*! ./bag */
-
-/*! ./fields */
-
-/*! ./header */
-
-/*! ./lib/heap */
-
-/*! ./nmerge */
-
-/*! ./parseMessageDefinition */
-
-/*! ./record */
-
-/*! ./types */
-
-/*! base64-js */
-
-/*! buffer */
-
-/*! exports provided: MessageReader */
-
-/*! exports provided: MessageWriter */
-
-/*! exports provided: Record, BagHeader, Chunk, Connection, MessageData, IndexData, ChunkInfo */
-
-/*! exports provided: extractFields, extractTime */
-
-/*! exports provided: fromDate, toDate, compare, isLessThan, isGreaterThan, areSame, add */
-
-/*! exports provided: parseHeader */
-
-/*! exports provided: rosPrimitiveTypes, parseMessageDefinition */
-
-/*! heap */
-
-/*! ieee754 */
-
-/*! int53 */
-
-/*! isarray */
-
-/*!********************!*\
-  !*** ./src/bag.js ***!
-  \********************/
-
-/*!**********************!*\
-  !*** ./src/index.js ***!
-  \**********************/
-
-/*!**********************!*\
-  !*** ./src/types.js ***!
-  \**********************/
-
-/*!***********************!*\
-  !*** ./src/fields.js ***!
-  \***********************/
-
-/*!***********************!*\
-  !*** ./src/header.js ***!
-  \***********************/
-
-/*!***********************!*\
-  !*** ./src/nmerge.js ***!
-  \***********************/
-
-/*!***********************!*\
-  !*** ./src/record.js ***!
-  \***********************/
-
-/*!*************************!*\
-  !*** ./src/TimeUtil.js ***!
-  \*************************/
-
-/*!**************************!*\
-  !*** ./src/BagReader.js ***!
-  \**************************/
-
-/*!**************************!*\
-  !*** ./src/web/index.js ***!
-  \**************************/
-
-/*!***************************!*\
-  !*** ./src/ReadResult.js ***!
-  \***************************/
-
-/*!******************************!*\
-  !*** ./src/MessageReader.js ***!
-  \******************************/
-
-/*!******************************!*\
-  !*** ./src/MessageWriter.js ***!
-  \******************************/
-
-/*!************************************!*\
-  !*** ./node_modules/heap/index.js ***!
-  \************************************/
-
-/*!*************************************!*\
-  !*** ./node_modules/int53/index.js ***!
-  \*************************************/
-
-/*!***************************************!*\
-  !*** ./node_modules/heap/lib/heap.js ***!
-  \***************************************/
-
-/*!***************************************!*\
-  !*** ./node_modules/ieee754/index.js ***!
-  \***************************************/
-
-/*!***************************************!*\
-  !*** ./node_modules/isarray/index.js ***!
-  \***************************************/
-
-/*!***************************************!*\
-  !*** ./src/parseMessageDefinition.js ***!
-  \***************************************/
-
-/*!*****************************************!*\
-  !*** ./node_modules/base64-js/index.js ***!
-  \*****************************************/
-
-/*!*********************************************************************!*\
-  !*** ./node_modules/node-libs-browser/node_modules/buffer/index.js ***!
-  \*********************************************************************/
-
-/**
- * @license
- * Copyright 2010-2022 Three.js Authors
- * SPDX-License-Identifier: MIT
- */
 
 
 /*!
