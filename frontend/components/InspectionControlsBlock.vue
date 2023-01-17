@@ -5,58 +5,12 @@
     >
       <Modal ref="modal" />
       <ProgressContainer>
-        <ProgressContainerElement title="Connect your wallet" :status="progressElementStatuses['connectWallet']">
-          <StepContentContainer>
-            <Anchor anchor-id="anchor-to-1" href-id="#1" title="" />
-
-            <p class="text-md my-2 text-white mx-6">
-              Identity and access rights are managed using the cryptographic key
-              from your Web3 wallet.
-            </p>
-            <img src="/pictures/Frame2.png">
-            <div class="flex items-center justify-center">
-              <AccountChooser />
-              <div v-if="wallet.walletConnectionStatus === 'error'">
-                <p class="text-xl my-6 text-center text-white font-bold">
-                  ❗ Please install
-                  <!-- <a
-                  class="text-orange-600"
-                  href="https://polkadot.js.org/extension/"
-                  target="_blank"
-                >PolkadotService.js extension</a>, create and add Web3 account. Then reload this page. -->
-                  <a
-                    class="text-orange-600"
-                    href="https://talisman.xyz/"
-                    target="_blank"
-                  >Talisman web3 wallet</a> and create an account. Then reload this page.
-                </p>
-              </div>
-            </div>
-            <div>
-              <p class="text-md my-2 text-white mx-6">
-                You need to get your control token by signing robot's token
-              </p>
-
-              <button
-                type="button"
-                class="uppercase text-md w-full py-2 my-2 px-4 bg-gray-200 text-gray-800
-        hover:bg-gray-800 hover:bg-gray-100 hover:text-white"
-                @click="signToken"
-              >
-                Sign token
-              </button>
-              <div>status: {{ robot.signedRobotToken?'authed':'not authed' }}</div>
-            </div>
-          </StepContentContainer>
-        </ProgressContainerElement>
-
         <ProgressContainerElement title="Send launch transaction" :status="progressElementStatuses['sendLaunchCommand']">
           <StepContentContainer>
             <Anchor anchor-id="anchor-to-4" href-id="#4" title="" />
             <p class="text-md my-2 text-white mx-6">
-              Teleoperation is authorized by sending transactions directly to the robot’s address using your wallet.
+              Hit the button to power on the Boston Dynamics Spot robot in our lab and start a teleoperation session.
             </p>
-            <img src="/pictures/Frame4.png">
 
             <div class="flex items-center justify-center mt-4">
               <SendDrawingCommand />
@@ -114,7 +68,7 @@
 </template>
 
 <script>
-import { computed, defineComponent, ref } from '@nuxtjs/composition-api'
+import { computed, defineComponent, onMounted, ref } from '@nuxtjs/composition-api'
 
 import { useWallet } from '~/store/wallet'
 import { useRobot } from '~/store/robot'
@@ -144,6 +98,9 @@ export default defineComponent({
       robot.signedRobotToken = signedMessage
     }
 
+    onMounted(async () => {
+      await signToken()
+    })
     const progressElementStatuses = computed(() => {
       const stagesStatus = {
         connectWallet: (wallet.walletConnectionStatus === 'connected'),

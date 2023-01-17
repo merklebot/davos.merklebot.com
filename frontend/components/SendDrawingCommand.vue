@@ -1,54 +1,20 @@
 <template>
-  <PayWithToggle>
-    <template #ticket>
-      <div class="w-full px-2 bg-gray-600 relative">
-        <p class="text-md my-4 mb-16 text-white text-center">
-          You have {{
-            wallet.selectedAccount.tickets.filter(
-              (ticket) => ticket.spent === false
-            ).length
-          }}
-          tickets
-        </p>
-        <button
-          type="button"
-          class="
-              absolute bottom-0 inset-x-0 uppercase py-2 mx-4 my-2 px-4 md:mt-16
+  <div>
+    <button
+      type="button"
+      class="
+              uppercase py-2 mx-4 my-2 px-4 md:mt-16
               text-md text-center
               text-gray-800 bg-gray-200 border-2
               hover:bg-gray-100 hover:bg-gray-800 hover:text-white
             "
-          :class="{'opacity-30 pointer-events-none': !canLaunchForTicket}"
-          :disabled="!canLaunchForTicket"
-          @click="sendCommandTicket"
-        >
-          Launch for 1 ticket
-        </button>
-      </div>
-    </template>
-    <template #XRT>
-      <div class="w-full px-2 bg-gray-600 relative">
-        <p class="text-md my-4 mb-16 text-white text-center">
-          You have {{ wallet.selectedAccount.balanceFormatted }}
-        </p>
-
-        <button
-          type="button"
-          class="
-              absolute bottom-0 inset-x-0 uppercase py-2 mx-4 my-2 px-4 md:mt-16
-              text-md text-center
-              text-gray-800 bg-gray-200 border-2
-              hover:bg-gray-100 hover:bg-gray-800 hover:text-white
-            "
-          :class="{'opacity-30 pointer-events-none': !canLaunchForXrt}"
-          :disabled="!canLaunchForXrt"
-          @click="sendCommandXrt"
-        >
-          Launch for 1 XRT
-        </button>
-      </div>
-    </template>
-  </PayWithToggle>
+      :class="{'opacity-30 pointer-events-none': !canLaunchForTicket}"
+      :disabled="!canLaunchForTicket"
+      @click="sendCommandTicket"
+    >
+      Launch Spot
+    </button>
+  </div>
 </template>
 
 <script>

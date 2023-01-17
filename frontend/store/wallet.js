@@ -12,7 +12,9 @@ export const useWallet = defineStore('wallet', {
       accounts: [],
       walletConnectionStatus: 'wait',
       selectedAccount: {
-        account: null,
+        account: {
+          address: '4DRQiZKqktnp7SEWxryUExeyVhZRWG2aERdAJ692G9rwLC4t'
+        },
         balanceRaw: null,
         balanceFormatted: null,
         tickets: []
@@ -51,6 +53,14 @@ export const useWallet = defineStore('wallet', {
         this.selectedAccount.balanceRaw = balance
         this.selectedAccount.balanceFormatted = (balance * 10 ** -9).toFixed(4) + ' XRT'
       })
+    },
+    subscribeBalance () {
+      subscribeToBalanceUpdates(this.selectedAccount.account.address, ({ free, feeFrozen }) => {
+        const balance = free.sub(feeFrozen)
+        this.selectedAccount.balanceRaw = balance
+        this.selectedAccount.balanceFormatted = (balance * 10 ** -9).toFixed(4) + ' XRT'
+      })
     }
+
   }
 })

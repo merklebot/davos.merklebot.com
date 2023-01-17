@@ -1,10 +1,11 @@
 import { Robonomics, utils } from 'robonomics-interface'
 import AccountManager from 'robonomics-interface/dist/accountManagerUi'
-import keyring from '@polkadot/ui-keyring'
-import { web3FromSource } from '@polkadot/extension-dapp'
-import { stringToHex } from '@polkadot/util'
+import { Keyring } from '@polkadot/keyring'
+
+import { stringToU8a, u8aToHex } from '@polkadot/util'
 let robonomics
 
+const SEED = 'frown pear live badge idea praise deny more click offer setup neglect'
 export const getInstance = async () => {
   if (robonomics) {
     return robonomics
@@ -12,7 +13,7 @@ export const getInstance = async () => {
   robonomics = new Robonomics({
     endpoint: 'wss://kusama.rpc.robonomics.network'
   })
-  robonomics.setAccountManager(new AccountManager(keyring))
+  robonomics.setAccountManager(new AccountManager(new Keyring({ type: 'sr25519' })))
   await robonomics.run()
   await AccountManager.initPlugin(robonomics.accountManager.keyring)
   return robonomics
@@ -66,24 +67,21 @@ export const makeTransferTx = async (recipient, value) => {
 
 export const signMessage = async (message) => {
   const robonomics = await getInstance()
-  const injector = await web3FromSource(robonomics.accountManager.account.meta.source)
 
-  const signRaw = injector?.signer?.signRaw
+  const keyring = robonomics.accountManager.keyring.addFromUri(SEED)
+  const signature = keyring.sign(stringToU8a(message))
+  console.log(signature)
+  console.log(u8aToHex(signature))
 
-  if (signRaw) {
-    const { signature } = await signRaw({
-      address: robonomics.accountManager.account.address,
-      data: stringToHex(message),
-      type: 'bytes'
-    })
-
-    return signature
-  }
-  return null
+  return u8aToHex(signature)
 }
 
 export const signAndSendTxWithActiveAccount = async (tx) => {
   const robonomics = await getInstance()
+  robonomics.accountManager.keyring.addFromUri(SEED)
+  const accounts = robonomics.accountManager.getAccounts()
+  console.log(accounts[0].address)
+  await robonomics.accountManager.selectAccountByAddress(accounts[0].address)
   const resultTx = await robonomics.accountManager.signAndSend(tx)
   return resultTx
 }
