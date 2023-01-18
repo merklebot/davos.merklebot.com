@@ -4,22 +4,6 @@
       type="button"
       class="uppercase text-md w-full py-2 my-2 px-1 bg-gray-200 text-gray-800
         hover:bg-gray-800 hover:bg-gray-100 hover:text-white"
-      @click="()=>poseCommand('stance')"
-    >
-      Stance sides
-    </button>
-    <button
-      type="button"
-      class="uppercase text-md w-full py-2 my-2 px-1 bg-gray-200 text-gray-800
-        hover:bg-gray-800 hover:bg-gray-100 hover:text-white"
-      @click="()=>poseCommand('stance_0')"
-    >
-      Stance default
-    </button>
-    <button
-      type="button"
-      class="uppercase text-md w-full py-2 my-2 px-1 bg-gray-200 text-gray-800
-        hover:bg-gray-800 hover:bg-gray-100 hover:text-white"
       @click="()=>poseCommand('seat')"
     >
       Seat
@@ -31,22 +15,6 @@
       @click="()=>poseCommand('stand')"
     >
       Stand
-    </button>
-    <button
-      type="button"
-      class="uppercase text-md w-full py-2 my-2 px-1 bg-gray-200 text-gray-800
-        hover:bg-gray-800 hover:bg-gray-100 hover:text-white"
-      @click="()=>poseCommand('bow')"
-    >
-      Bow
-    </button>
-    <button
-      type="button"
-      class="uppercase text-md w-full py-2 my-2 px-1 bg-gray-200 text-gray-800
-        hover:bg-gray-800 hover:bg-gray-100 hover:text-white"
-      @click="()=>poseCommand('bow_b')"
-    >
-      Look up
     </button>
   </div>
 </template>

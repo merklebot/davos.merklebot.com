@@ -15,9 +15,9 @@
             >View data</a>
             <Spinner v-else />
           </p>
-          <div class="flex items-left justify-left m-4">
-            <video :src="`${makeIpfsFolderLink(traceInfo)}/h264_camera.mp4`" type="video/mp4" controls />
-          </div>
+          <!--          <div class="flex items-left justify-left m-4">-->
+          <!--            <video :src="`${makeIpfsFolderLink(traceInfo)}/h264_camera.mp4`" type="video/mp4" controls />-->
+          <!--          </div>-->
         </div>
 
         <div v-else>
