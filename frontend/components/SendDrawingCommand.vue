@@ -8,8 +8,6 @@
               text-gray-800 bg-gray-200 border-2
               hover:bg-gray-100 hover:bg-gray-800 hover:text-white
             "
-      :class="{'opacity-30 pointer-events-none': !canLaunchForTicket}"
-      :disabled="!canLaunchForTicket"
       @click="sendCommandTicket"
     >
       Launch Spot
