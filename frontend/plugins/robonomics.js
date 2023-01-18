@@ -15,7 +15,7 @@ export const getInstance = async () => {
   })
   robonomics.setAccountManager(new AccountManager(new Keyring({ type: 'sr25519' })))
   await robonomics.run()
-  await AccountManager.initPlugin(robonomics.accountManager.keyring)
+  // await AccountManager.initPlugin(robonomics.accountManager.keyring)
   return robonomics
 }
 

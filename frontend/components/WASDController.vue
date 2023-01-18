@@ -5,7 +5,7 @@
       type="button"
       class="uppercase text-md w-full py-2 my-2 px-1 bg-gray-200 text-gray-800
         hover:bg-gray-800 hover:bg-gray-100 hover:text-white"
-      @click="()=>moveCommand({x:1, y:0})"
+      @click="()=>moveCommand({ x: 0.45, y: 0, r: 0 })"
     >
       Up
     </button>
@@ -14,7 +14,7 @@
       type="button"
       class="uppercase text-md w-full py-2 my-2 px-1 bg-gray-200 text-gray-800
         hover:bg-gray-800 hover:bg-gray-100 hover:text-white"
-      @click="()=>moveCommand({x:0, y:-1})"
+      @click="()=>moveCommand({ x: 0, y: 0.4, r: 0 })"
     >
       Left
     </button>
@@ -22,7 +22,7 @@
       type="button"
       class="uppercase text-md w-full py-2 my-2 px-1 bg-gray-200 text-gray-800
         hover:bg-gray-800 hover:bg-gray-100 hover:text-white"
-      @click="()=>moveCommand({x:-1, y:0})"
+      @click="()=>moveCommand({ x: -0.4, y: 0, r: 0 })"
     >
       Down
     </button>
@@ -30,7 +30,7 @@
       type="button"
       class="uppercase text-md w-full py-2 my-2 px-1 bg-gray-200 text-gray-800
         hover:bg-gray-800 hover:bg-gray-100 hover:text-white"
-      @click="()=>moveCommand({x:0, y:1})"
+      @click="()=>moveCommand({ x: 0, y: -0.4, r: 0 })"
     >
       Right
     </button>

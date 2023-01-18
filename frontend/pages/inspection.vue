@@ -70,6 +70,7 @@ export default defineComponent({
     }
 
     onMounted(() => {
+      connectToSpot()
       doRobotStatePolling()
       doTicketsListPolling()
       wallet.subscribeBalance()
