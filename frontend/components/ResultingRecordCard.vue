@@ -6,44 +6,15 @@
       <CardContainer title="Saved data">
         <div v-if="launchData!==null">
           <p class="text-md mt-2 text-white">
-            Robonomics Launch Tx: <a
-              :href="makeSubscanLink('robonomics', launchTxId)"
-              class="text-yellow-500"
-              target="_blank"
-              rel="noopener noreferrer"
-            >{{ addressShort(launchTxId) }}</a>
-          </p>
-          <p class="text-md mt-2 text-white">
-            Record data on IPFS: <a
+            <a
               v-if="traceInfo.ipfsCid"
               :href="makeIpfsFolderLink(traceInfo)"
               class="text-yellow-500"
               target="_blank"
               rel="noopener noreferrer"
-            >{{ addressShort(traceInfo.ipfsCid) }}</a>
+            >View data</a>
             <Spinner v-else />
           </p>
-          <p class="text-md mt-2 text-white">
-            Robonomics Datalog Tx: <a
-              v-if="datalogTxId"
-              :href="makeSubscanLink('robonomics', datalogTxId)"
-              class="text-yellow-500"
-              target="_blank"
-              rel="noopener noreferrer"
-            >{{ addressShort(datalogTxId) }}</a>
-            <Spinner v-else />
-          </p>
-          <p class="text-md mt-2 text-white">
-            Crust Storage Order Tx: <a
-              v-if="crustTxId"
-              :href="makeSubscanLink('crust', crustTxId)"
-              class="text-yellow-500"
-              target="_blank"
-              rel="noopener noreferrer"
-            >{{ addressShort(crustTxId) }}</a>
-            <Spinner v-else />
-          </p>
-
           <div class="flex items-left justify-left m-4">
             <video :src="`${makeIpfsFolderLink(traceInfo)}/h264_camera.mp4`" type="video/mp4" controls />
           </div>
@@ -52,14 +23,6 @@
         <div v-else>
           <p class="text-md mt-2 text-white">
             Your launch data will appear here after processing drawing and saving all data
-          </p>
-        </div>
-      </CardContainer>
-      <CardContainer class="mt-8" title="NFT data">
-        <NftInfo v-if="nftOrderInfo!==null" :info="nftOrderInfo" />
-        <div v-else>
-          <p class="text-md mt-2 text-white">
-            Your NFT data will appear here after minting.
           </p>
         </div>
       </CardContainer>

@@ -49,16 +49,9 @@
           </StepContentContainer>
         </ProgressContainerElement>
 
-        <ProgressContainerElement title="Review recorded data" :status="progressElementStatuses['recordedData']">
+        <ProgressContainerElement title="View data" :status="progressElementStatuses['recordedData']">
           <StepContentContainer>
             <Anchor anchor-id="anchor-to-7" href-id="#7" title="" />
-            <p class="text-md my-2 text-white mx-6">
-              The data is recorded using IPFS and stored with multiple replicas using decentralized Crust Network to guarantee availability and resiliency.
-            </p>
-            <img src="/pictures/Frame5.png">
-            <p class="text-md my-2 text-white mx-6">
-              Here is the report from your interaction with Spot:
-            </p>
             <ResultingRecordCard />
           </StepContentContainer>
         </ProgressContainerElement>
