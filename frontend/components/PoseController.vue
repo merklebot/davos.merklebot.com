@@ -6,7 +6,7 @@
         hover:bg-gray-800 hover:bg-gray-100 hover:text-white"
       @click="()=>poseCommand('seat')"
     >
-      Seat
+      Sit
     </button>
     <button
       type="button"
