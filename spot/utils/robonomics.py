@@ -4,6 +4,7 @@ import requests
 from substrateinterface import SubstrateInterface
 import robonomicsinterface
 import datadog
+import traceback
 
 from settings.settings import INTERACTION_MODE, IPFS_COMMAND_GATEWAY
 from utils.logger import logger
@@ -86,4 +87,5 @@ class RobonimicsHelper:
                     addr="4FNQo2tK6PLeEhNEUuPePs8B8xKNwx15fX7tC2XnYpkC8W1j",
                 )
             except:
+                traceback.print_exc()
                 logger.error("Error while connecting to robonomics, restart subscriber...")
