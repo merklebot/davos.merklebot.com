@@ -196,8 +196,8 @@ def spot_logic_process(actions_queue, drawing_queue, robot_state):
                 if transaction['sender'] in ADMIN_ACCOUNTS:
                     execute_inspection_command(task, transaction)
             robot_state['current_user'] = None
-        except:
-            logger.error(traceback.print_exc())
+        except Exception as e:
+            logger.error(str(e))
 
     while True:
         execute_task()
