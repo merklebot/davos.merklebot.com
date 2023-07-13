@@ -22,7 +22,7 @@ class PubsubHelper:
         3. Stop recording,
         4. Launch after session procedures in background.
         """
-
+        try:
         # sender, recipient, command_params_32_bytes = data
         # session_id = get_account_nonce(sender)
         # command_params_ipfs_hash = robonomicsinterface.ipfs_32_bytes_to_qm_hash(command_params_32_bytes)
@@ -30,23 +30,30 @@ class PubsubHelper:
         # task['transaction'] = {'tx_id': launch_event_id, 'sender': sender, 'recipient': recipient, 'session_id': session_id}
         #
         # if INTERACTION_MODE == 'drawing':
-        ipfs_hash = json.loads(message["data"])["objective"]
-        task = requests.get(f'{IPFS_COMMAND_GATEWAY}/{ipfs_hash}').json()
-        task["task_source"] = "ipfs_pubsub"
+            ipfs_hash = json.loads(message["data"])["objective"]
+            task = requests.get(f'{IPFS_COMMAND_GATEWAY}/{ipfs_hash}').json()
+            task["task_source"] = "ipfs_pubsub"
 
-        self.task_queue.put(task)
+            self.task_queue.put(task)
+            logger.info("IPFS Session complete")
+        except:
+            logger.error("Failed to process task")
         #     # self.execute_drawing_command(address=sender)
         # elif INTERACTION_MODE == 'movement':
         #     pass
 
-        logger.info("IPFS Session complete")
+
 
     def start_subscriber(self):
+        already_started = False
         while True:
             try:
-                logger.info("IPFS pubsub subscriber starting...")
-                ipfs_api.pubsub_subscribe("test_for_spot", self.ipfs_pubsub_callback)
+                if not already_started:
+                    already_started = True
+                    logger.info("IPFS pubsub subscriber starting...")
+                    ipfs_api.pubsub_subscribe("test_for_spot", self.ipfs_pubsub_callback)
             except:
+                already_started = False
                 traceback.print_exc()
                 logger.error("Error while connecting to ipfs pubsub, restart subscriber...")
             time.sleep(5)
