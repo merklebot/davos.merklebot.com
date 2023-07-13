@@ -33,6 +33,7 @@ class PubsubHelper:
             ipfs_hash = json.loads(message["data"])["objective"]
             task = requests.get(f'{IPFS_COMMAND_GATEWAY}/{ipfs_hash}').json()
             task["task_source"] = "ipfs_pubsub"
+            del task["payment_mode"]
 
             self.task_queue.put(task)
             logger.info("IPFS Session complete")
