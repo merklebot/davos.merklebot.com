@@ -197,7 +197,7 @@ def spot_logic_process(actions_queue, drawing_queue, robot_state):
                     execute_inspection_command(task, transaction)
             robot_state['current_user'] = None
         except Exception as e:
-            logger.error(str(e))
+            logger.error(traceback.format_exc())
 
     while True:
         execute_task()
