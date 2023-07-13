@@ -1,4 +1,4 @@
-from spot.spot_logic import spot_logic_process, robonomics_subscriber_process
+from spot.spot_logic import spot_logic_process, robonomics_subscriber_process, ipfs_pubsub_subscriber_process
 from server.server import server
 
 import multiprocessing
@@ -25,10 +25,12 @@ def main():
     spot_controller_process = ctx.Process(target=spot_logic_process, args=(actions_queue, tasks_queue, robot_state))
     server_process = ctx.Process(target=server, args=(actions_queue, tasks_queue, robot_state))
     robonomics_process = ctx.Process(target=robonomics_subscriber_process, args=(robot_state, tasks_queue))
+    ipfs_pubsub_process = ctx.Process(target=ipfs_pubsub_subscriber_process, args=(robot_state, tasks_queue))
 
     PROCESSES.append(spot_controller_process)
     PROCESSES.append(server_process)
     PROCESSES.append(robonomics_process)
+    PROCESSES.append(ipfs_pubsub_process)
 
     for p in PROCESSES:
         p.start()

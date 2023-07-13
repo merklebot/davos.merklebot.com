@@ -9,6 +9,7 @@ from spot.spot_controller import SpotController
 from utils.calibration import centralize, coord_nodes, calibration_movement
 from utils.robonomics import RobonimicsHelper
 from utils.recorder import DataRecorder
+from utils.ipfs_pubsub import PubsubHelper
 from settings.settings import SPOT_USERNAME, SPOT_PASSWORD, SPOT_IP, MOVEMENT_SESSION_DURATION_TIME, USE_ROBONOMICS, \
     ADMIN_ACCOUNTS, TELEGRAM_BOT_TOKEN, TELEGRAM_BOT_USER_ID
 
@@ -39,6 +40,11 @@ def robonomics_subscriber_process(robot_state, tasks_queue):
     robonomics_helper.start_subscriber()
 
 
+def ipfs_pubsub_subscriber_process(robot_state, tasks_queue):
+    pubsub_helper = PubsubHelper(robot_state, tasks_queue)
+    pubsub_helper.start_subscriber()
+
+
 def spot_logic_process(actions_queue, drawing_queue, robot_state):
     def execute_drawing_command(task, transaction):
         admin_action = task.get('admin_action', False)
@@ -55,7 +61,7 @@ def spot_logic_process(actions_queue, drawing_queue, robot_state):
         logger.info("Got task: {}".format(segments_task))
         data_recorder = None
         if not admin_action:
-            data_recorder = DataRecorder(transaction)
+            data_recorder = DataRecorder(transaction, random_folder_name=(task.get("task_source")=="ipfs_pubsub"))
             data_recorder.start_data_recording()
 
         # notify videoserver to clear canvas
@@ -96,7 +102,7 @@ def spot_logic_process(actions_queue, drawing_queue, robot_state):
         time.sleep(1)
         if not admin_action:
             data_recorder.stop_data_recording()
-            data_recorder.start_data_uploading()
+            data_recorder.start_data_uploading(from_ipfs_pubsub=(task.get("task_source")=="ipfs_pubsub"))
             robot_state['last_session_id'] = transaction['session_id']
         robot_state['state'] = "idle"
 

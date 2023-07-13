@@ -7,6 +7,7 @@ import subprocess
 import signal
 import shutil
 import requests
+import uuid
 
 from pinatapy import PinataPy
 from substrateinterface import SubstrateInterface, Keypair
@@ -26,6 +27,7 @@ from settings.settings import (
     TRACES_DIR,
     WEB3_STORAGE_API_KEY
 )
+import ipfs_api
 
 
 def after_session_complete(
@@ -35,10 +37,12 @@ def after_session_complete(
         session_id,
         created_at_str,
         launch_event_id,
-        record_video
+        record_video,
+        from_ipfs_pubsub
 ):
-    res_record_create = create_launch_trace(sender, session_id, created_at_str, launch_event_id)
-    record_id = res_record_create['id']
+    if not from_ipfs_pubsub:
+        res_record_create = create_launch_trace(sender, session_id, created_at_str, launch_event_id)
+        record_id = res_record_create['id']
     print("After session procedure for session {} started".format(session_id))
 
     if record_video:
@@ -53,7 +57,12 @@ def after_session_complete(
     print("Pinata response: {}".format(pinata_resp))
 
     ipfs_cid = pinata_resp["IpfsHash"]
-    update_launch_trace(record_id, {'ipfs_cid': ipfs_cid})
+    if not from_ipfs_pubsub:
+        update_launch_trace(record_id, {'ipfs_cid': ipfs_cid})
+
+    if from_ipfs_pubsub:
+        ipfs_api.pubsub_publish("test_for_spot", ipfs_cid)
+        return
 
     try:
         car_url = "https://merklebot.mypinata.cloud/ipfs/{}?format=car&download=true".format(ipfs_cid)
@@ -124,17 +133,18 @@ def after_session_complete(
 
 
 class DataRecorder:
-    def __init__(self, transaction, record_video=True):
-        self.sender = transaction['sender']
-        self.recipient = transaction['recipient']
-        self.session_id = transaction['session_id']
-        self.tx_id = transaction['tx_id']
+    def __init__(self, transaction, record_video=True, random_folder_name=False):
+        self.sender = transaction.get('sender')
+        self.recipient = transaction.get('recipient')
+        self.session_id = transaction.get('session_id')
+        self.tx_id = transaction.get('tx_id')
         self.recorder = None
         self.video_recorder = None
         self.record_folder_name = None
         self.video_name = None
         self.created_at_str = None
         self.record_video = record_video
+        self.random_folder_name = random_folder_name
 
     def start_data_recording(self):
         self.created_at_str = datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%S")
@@ -143,7 +153,7 @@ class DataRecorder:
             self.recipient,
             self.session_id,
             self.created_at_str
-        )
+        ) if not self.random_folder_name else str(uuid.uuid4())
 
         bag_name = "state.bag"
         self.video_name = "camera.mp4"
@@ -183,7 +193,7 @@ class DataRecorder:
             self.video_recorder.send_signal(signal.SIGINT)
         time.sleep(10)
 
-    def start_data_uploading(self):
+    def start_data_uploading(self, from_ipfs_pubsub=False):
         multiprocessing.Process(
             target=after_session_complete,
             args=(
@@ -193,6 +203,7 @@ class DataRecorder:
                 self.session_id,
                 self.created_at_str,
                 self.tx_id,
-                self.record_video
+                self.record_video,
+                from_ipfs_pubsub
             )
         ).start()
