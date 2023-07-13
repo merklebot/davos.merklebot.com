@@ -18,7 +18,7 @@ from datetime import datetime
 
 import datadog
 from utils.logger import logger
-
+import traceback
 
 def robonomics_subscriber_process(robot_state, tasks_queue):
     datadog_options = {
@@ -171,30 +171,33 @@ def spot_logic_process(actions_queue, drawing_queue, robot_state):
         robot_state['state'] = "idle"
 
     def execute_task():
-        task = drawing_queue.get()
-        transaction = task.get('transaction', None)
-        logger.info("executing task {}".format(task))
-        payment_mode = task.get('payment_mode')
+        try:
+            task = drawing_queue.get()
+            transaction = task.get('transaction', None)
+            logger.info("executing task {}".format(task))
+            payment_mode = task.get('payment_mode')
 
-        address = transaction.get('sender') if transaction else None
+            address = transaction.get('sender') if transaction else None
 
-        if payment_mode == 'ticket':
-            customer_tickets = get_tickets_by_customer(address=address)
-            available_tickets = [ticket for ticket in customer_tickets if ticket['spent'] == False]
-            if len(available_tickets) == 0:
-                logger.info("No available tickets for", address)
-                return
-            else:
-                spend_ticket(available_tickets[0]['id'])
+            if payment_mode == 'ticket':
+                customer_tickets = get_tickets_by_customer(address=address)
+                available_tickets = [ticket for ticket in customer_tickets if ticket['spent'] == False]
+                if len(available_tickets) == 0:
+                    logger.info("No available tickets for", address)
+                    return
+                else:
+                    spend_ticket(available_tickets[0]['id'])
 
-        robot_state['current_user'] = address
+            robot_state['current_user'] = address
 
-        if task['task_type'] == 'drawing':
-            execute_drawing_command(task, transaction)
-        elif task['task_type'] == 'inspection':
-            if transaction['sender'] in ADMIN_ACCOUNTS:
-                execute_inspection_command(task, transaction)
-        robot_state['current_user'] = None
+            if task['task_type'] == 'drawing':
+                execute_drawing_command(task, transaction)
+            elif task['task_type'] == 'inspection':
+                if transaction['sender'] in ADMIN_ACCOUNTS:
+                    execute_inspection_command(task, transaction)
+            robot_state['current_user'] = None
+        except:
+            logger.error(traceback.print_exc())
 
     while True:
         execute_task()
