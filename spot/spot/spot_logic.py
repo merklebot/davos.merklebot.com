@@ -173,7 +173,7 @@ def spot_logic_process(actions_queue, drawing_queue, robot_state):
     def execute_task():
         try:
             task = drawing_queue.get()
-            transaction = task.get('transaction', None)
+            transaction = task.get('transaction', {})
             logger.info("executing task {}".format(task))
             payment_mode = task.get('payment_mode')
 
