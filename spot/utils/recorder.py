@@ -8,7 +8,7 @@ import signal
 import shutil
 import requests
 import uuid
-
+import json
 from pinatapy import PinataPy
 from substrateinterface import SubstrateInterface, Keypair
 import datadog
@@ -61,7 +61,7 @@ def after_session_complete(
         update_launch_trace(record_id, {'ipfs_cid': ipfs_cid})
 
     if from_ipfs_pubsub:
-        ipfs_api.pubsub_publish("test_for_spot", ipfs_cid)
+        ipfs_api.pubsub_publish("test_for_spot", json.dumps({"result": ipfs_cid}))
         return
 
     try:
