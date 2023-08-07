@@ -5,8 +5,8 @@ import urllib.request
 import numpy as np
 
 
-def make_nft_card(drawing):
-    template = cv2.imread("NFT_SPOT_AUSTIN.jpeg")
+def make_nft_card(drawing, nft_for_neon):
+    template = cv2.imread("NFT_SPOT_AUSTIN.jpeg") if nft_for_neon == "false" else cv2.imread("NFT_SPOT_Neon.jpeg")
     t_w, t_h, _ = template.shape
     mask_template = np.ones((t_h, t_w)) * 255
 
@@ -43,7 +43,7 @@ def make_nft_card(drawing):
     return template#cv2.bitwise_and(template, template, mask=mask_template)
 
 
-def start_record(video_url, output_path, last_im_file, last_drawing_file, nft_drawing_file):
+def start_record(video_url, output_path, last_im_file, last_drawing_file, nft_drawing_file, nft_for_neon):
     stream = cv2.VideoCapture(video_url)
 
     width = int(stream.get(cv2.CAP_PROP_FRAME_WIDTH))
@@ -69,7 +69,7 @@ def start_record(video_url, output_path, last_im_file, last_drawing_file, nft_dr
             arr = np.asarray(bytearray(req.read()), dtype=np.uint8)
             last_drawing = cv2.imdecode(arr, -1)
             cv2.imwrite(last_drawing_file, last_drawing, [int(cv2.IMWRITE_JPEG_QUALITY), 100])
-            helloween_img = make_nft_card(last_drawing)
+            helloween_img = make_nft_card(last_drawing, nft_for_neon)
             cv2.imwrite(nft_drawing_file, helloween_img, [int(cv2.IMWRITE_JPEG_QUALITY), 100])
         stream.release()
         out.release()
@@ -87,7 +87,10 @@ if __name__ == '__main__':
                         help='Last drawing file (save after process interruption)')
     parser.add_argument("--nft_drawing_file", dest='nft_drawing_file', required=True, type=str,
                         help='Last drawing file (save after process interruption)')
+    parser.add_argument("--nft_for_neon", dest='nft_for_neon', required=True, type=str,
+                        help=')')
+
 
     args = parser.parse_args()
     start_record(args.video_url, args.output_file, args.last_im_file, args.last_drawing_file,
-                 args.nft_drawing_file)
+                 args.nft_drawing_file, args.nft_for_neon)

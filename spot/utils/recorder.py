@@ -183,7 +183,8 @@ class DataRecorder:
                  "--last_drawing_file={}/{}/{}".format(TRACES_DIR, self.record_folder_name,
                                                        result_drawing_name),
                  "--nft_drawing_file={}/{}/{}".format(TRACES_DIR, self.record_folder_name,
-                                                            result_nft_name)
+                                                            result_nft_name),
+                 "--nft_for_neon={}".format("true" if self.random_folder_name else "false")
                  ])
 
     def stop_data_recording(self):
