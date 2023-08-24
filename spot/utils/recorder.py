@@ -56,6 +56,12 @@ def after_session_complete(
     pinata_resp = pinata.pin_file_to_ipfs(folder, options={'pinataOptions': '{"cidVersion": 1}'})
     print("Pinata response: {}".format(pinata_resp))
 
+    if not pinata_resp.get("IpfsHash"):
+        print("Retry to pin files to Pinata")
+        time.sleep(3)
+        pinata_resp = pinata.pin_file_to_ipfs(folder, options={'pinataOptions': '{"cidVersion": 1}'})
+        print("Pinata response: {}".format(pinata_resp))
+
     ipfs_cid = pinata_resp["IpfsHash"]
     if not from_ipfs_pubsub:
         update_launch_trace(record_id, {'ipfs_cid': ipfs_cid})
