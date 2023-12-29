@@ -24,8 +24,8 @@ def centralize(xx, yy, all_segments):
     xx = [x - min_x for x in xx]
     yy = [y - min_y for y in yy]
 
-    max_x = max(xx)
-    max_y = max(yy)
+    max_x = max(all_xx) - min(all_xx)
+    max_y = max(all_yy) - min(all_yy)
     xx = [x * MAX_WIDTH / max_x for x in xx]
     yy = [y * MAX_HEIGHT / max_y for y in yy]
     return xx, yy
