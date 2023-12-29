@@ -36,7 +36,7 @@ import ipfs_api
 async def upload_to_ipfs(folder):
     client = aioipfs.AsyncIPFS(maddr='/ip4/10.200.0.16/tcp/5001')
     added_list = []
-    async for added in client.core.add(folder, recursive=True, cid_version=1):
+    async for added in client.core.add(folder, recursive=True, cid_version=1, wrap_with_directory=True):
         print(added)
         added_list.append(added.get("Hash"))
 

@@ -102,7 +102,7 @@ const versionsTime = {
     end: Infinity
   }
 }
-const ipfsGatewayUrl = 'https://merklebot.mypinata.cloud/ipfs'
+const ipfsGatewayUrl = 'https://ipfs.io/ipfs'
 
 export const makeIpfsFolderLink = ({ ipfsCid, sender, nonce, createdAt }) => {
   const createdTime = Date.parse(createdAt + '+0000') // specify timezone, otherwise it takes local
