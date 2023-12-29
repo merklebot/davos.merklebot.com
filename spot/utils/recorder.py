@@ -169,11 +169,11 @@ class DataRecorder:
         os.makedirs("{}/{}".format(TRACES_DIR, self.record_folder_name), exist_ok=True)
 
         # duration=5m limits max recoding time and prevents orphan processes keep recording forever
-        self.recorder = subprocess.Popen(
-            ["rosbag", "record", "--duration=5m", "--output-name={}".format(bag_name), "/tf", "/tf_static",
-             "/joint_states"],
-            cwd="{}/{}/".format(TRACES_DIR, self.record_folder_name),  # directory to put files
-        )
+        # self.recorder = subprocess.Popen(
+        #     ["rosbag", "record", "--duration=5m", "--output-name={}".format(bag_name), "/tf", "/tf_static",
+        #      "/joint_states"],
+        #     cwd="{}/{}/".format(TRACES_DIR, self.record_folder_name),  # directory to put files
+        # )
         if self.record_video:
             # start recording stream from videoserver
             video_url = VIDEOSERVER_URL + "video"
@@ -195,7 +195,7 @@ class DataRecorder:
 
     def stop_data_recording(self):
         time.sleep(2)  # wait for the robot to finish its movement
-        self.recorder.terminate()
+        # self.recorder.terminate()
         if self.record_video:
             self.video_recorder.send_signal(signal.SIGINT)
         time.sleep(20)
