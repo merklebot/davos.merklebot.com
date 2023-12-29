@@ -13,42 +13,42 @@
               rel="noopener noreferrer"
             >{{ addressShort(launchTxId) }}</a>
           </p>
-          <p class="text-md mt-2 text-white">
-            Record data on IPFS: <a
-              v-if="traceInfo.ipfsCid"
-              :href="makeIpfsFolderLink(traceInfo)"
-              class="text-yellow-500"
-              target="_blank"
-              rel="noopener noreferrer"
-            >{{ addressShort(traceInfo.ipfsCid) }}</a>
-            <Spinner v-else />
-          </p>
-          <p class="text-md mt-2 text-white">
-            Robonomics Datalog Tx: <a
-              v-if="datalogTxId"
-              :href="makeSubscanLink('robonomics', datalogTxId)"
-              class="text-yellow-500"
-              target="_blank"
-              rel="noopener noreferrer"
-            >{{ addressShort(datalogTxId) }}</a>
-            <Spinner v-else />
-          </p>
-          <p class="text-md mt-2 text-white">
-            Crust Storage Order Tx: <a
-              v-if="crustTxId"
-              :href="makeSubscanLink('crust', crustTxId)"
-              class="text-yellow-500"
-              target="_blank"
-              rel="noopener noreferrer"
-            >{{ addressShort(crustTxId) }}</a>
-            <Spinner v-else />
-          </p>
-          <p class="text-md mt-2 text-white">
-            Filecoin: Information will appear <NuxtLink :to="`/records/${launchTxId}`">
-              here
-            </NuxtLink> during 48 hours...
-            <Spinner />
-          </p>
+<!--          <p class="text-md mt-2 text-white">-->
+<!--            Record data on IPFS: <a-->
+<!--              v-if="traceInfo.ipfsCid"-->
+<!--              :href="makeIpfsFolderLink(traceInfo)"-->
+<!--              class="text-yellow-500"-->
+<!--              target="_blank"-->
+<!--              rel="noopener noreferrer"-->
+<!--            >{{ addressShort(traceInfo.ipfsCid) }}</a>-->
+<!--            <Spinner v-else />-->
+<!--          </p>-->
+<!--          <p class="text-md mt-2 text-white">-->
+<!--            Robonomics Datalog Tx: <a-->
+<!--              v-if="datalogTxId"-->
+<!--              :href="makeSubscanLink('robonomics', datalogTxId)"-->
+<!--              class="text-yellow-500"-->
+<!--              target="_blank"-->
+<!--              rel="noopener noreferrer"-->
+<!--            >{{ addressShort(datalogTxId) }}</a>-->
+<!--            <Spinner v-else />-->
+<!--          </p>-->
+<!--          <p class="text-md mt-2 text-white">-->
+<!--            Crust Storage Order Tx: <a-->
+<!--              v-if="crustTxId"-->
+<!--              :href="makeSubscanLink('crust', crustTxId)"-->
+<!--              class="text-yellow-500"-->
+<!--              target="_blank"-->
+<!--              rel="noopener noreferrer"-->
+<!--            >{{ addressShort(crustTxId) }}</a>-->
+<!--            <Spinner v-else />-->
+<!--          </p>-->
+<!--          <p class="text-md mt-2 text-white">-->
+<!--            Filecoin: Information will appear <NuxtLink :to="`/records/${launchTxId}`">-->
+<!--              here-->
+<!--            </NuxtLink> during 48 hours...-->
+<!--            <Spinner />-->
+<!--          </p>-->
 
           <div class="flex items-left justify-left m-4">
             <video :src="`${makeIpfsFolderLink(traceInfo)}/h264_camera.mp4`" type="video/mp4" controls />
