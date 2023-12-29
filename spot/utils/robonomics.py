@@ -58,8 +58,9 @@ class RobonimicsHelper:
         command_params_ipfs_hash = robonomicsinterface.ipfs_32_bytes_to_qm_hash(command_params_32_bytes)
         task = requests.get(f'{IPFS_COMMAND_GATEWAY}/{command_params_ipfs_hash}').json()
         task['transaction'] = {'tx_id': launch_event_id, 'sender': sender, 'recipient': recipient, 'session_id': session_id}
-        import json
-        logger.info("TASK IS LOOKING LIKE THIS", json.dumps(task))
+        # import json
+        logger.info("Got task")
+        # logger.info("TASK IS LOOKING LIKE THIS", json.dumps(task))
         try:
             datadog.statsd.event(
                 "Launch",
