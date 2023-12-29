@@ -9,7 +9,10 @@ import shutil
 import requests
 import uuid
 import json
-from pinatapy import PinataPy
+# from pinatapy import PinataPy
+import aioipfs
+import asyncio
+
 from substrateinterface import SubstrateInterface, Keypair
 import datadog
 
@@ -29,6 +32,14 @@ from settings.settings import (
 )
 import ipfs_api
 
+
+async def upload_to_ipfs(folder):
+    client = aioipfs.AsyncIPFS(maddr='/ip4/10.200.0.16/tcp/5001')
+    added_list = []
+    async for added in client.core.add(folder, recursive=True, quieter=True, cid_version=1):
+        added_list.append(added.get("Hash"))
+
+    return added_list[-1]
 
 def after_session_complete(
         record_folder_name,
@@ -50,19 +61,22 @@ def after_session_complete(
         h264_path = "{}/{}/h264_{}".format(TRACES_DIR, record_folder_name, video_name)
         os.system("ffmpeg -loglevel error -i {} -vcodec h264 {} ".format(video_path, h264_path))
 
-    pinata = PinataPy(PINATA_API_KEY, PINATA_SECRET_API_KEY)
+    # pinata = PinataPy(PINATA_API_KEY, PINATA_SECRET_API_KEY)
     folder = "{}/{}".format(TRACES_DIR, record_folder_name)
     print("Record folder {}".format(folder))
-    pinata_resp = pinata.pin_file_to_ipfs(folder, options={'pinataOptions': '{"cidVersion": 1}'})
-    print("Pinata response: {}".format(pinata_resp))
+    # pinata_resp = pinata.pin_file_to_ipfs(folder, options={'pinataOptions': '{"cidVersion": 1}'})
+    # print("Pinata response: {}".format(pinata_resp))
 
-    if not pinata_resp.get("IpfsHash"):
-        print("Retry to pin files to Pinata")
-        time.sleep(3)
-        pinata_resp = pinata.pin_file_to_ipfs(folder, options={'pinataOptions': '{"cidVersion": 1}'})
-        print("Pinata response: {}".format(pinata_resp))
+    # if not pinata_resp.get("IpfsHash"):
+    #     print("Retry to pin files to Pinata")
+    #     time.sleep(3)
+    #     pinata_resp = pinata.pin_file_to_ipfs(folder, options={'pinataOptions': '{"cidVersion": 1}'})
+    #     print("Pinata response: {}".format(pinata_resp))
 
-    ipfs_cid = pinata_resp["IpfsHash"]
+    loop = asyncio.get_event_loop()
+    ipfs_cid = loop.run_until_complete(upload_to_ipfs(folder))
+
+    # ipfs_cid = pinata_resp["IpfsHash"]
     if not from_ipfs_pubsub:
         update_launch_trace(record_id, {'ipfs_cid': ipfs_cid})
 
@@ -84,38 +98,38 @@ def after_session_complete(
     datalog_extrinsic_hash = record_datalog(ipfs_cid)
     update_launch_trace(record_id, {'datalog_tx_id': datalog_extrinsic_hash})
 
-    try:
-        datadog.statsd.increment("trace.bytes", int(pinata_resp["PinSize"]))
-    except Exception as e:
-        pass
+    # try:
+    #     datadog.statsd.increment("trace.bytes", int(pinata_resp["PinSize"]))
+    # except Exception as e:
+    #     pass
 
-    # Pin to Crust Network
-    try:
-        size = pinata_resp["PinSize"]
-        crust = SubstrateInterface(
-            url="wss://rpc.crust.network",
-            ss58_format=66,
-            type_registry_preset="crust",
-        )
-        call = crust.compose_call(
-            call_module="Market",
-            call_function="place_storage_order",
-            call_params=dict(
-                cid=ipfs_cid,
-                reported_file_size=size,
-                tips=0,
-                _memo="",
-            )
-        )
-        keypair = Keypair.create_from_mnemonic(MNEMONIC)
-        extrinsic = crust.create_signed_extrinsic(
-            call=call,
-            keypair=keypair,
-        )
-        receipt = crust.submit_extrinsic(extrinsic, wait_for_finalization=True)
-        update_launch_trace(record_id, {'crust_tx_id': receipt.extrinsic_hash})
-    except Exception as e:
-        print(f"Crust Network exception: {e=}")
+    # # Pin to Crust Network
+    # try:
+    #     size = pinata_resp["PinSize"]
+    #     crust = SubstrateInterface(
+    #         url="wss://rpc.crust.network",
+    #         ss58_format=66,
+    #         type_registry_preset="crust",
+    #     )
+    #     call = crust.compose_call(
+    #         call_module="Market",
+    #         call_function="place_storage_order",
+    #         call_params=dict(
+    #             cid=ipfs_cid,
+    #             reported_file_size=size,
+    #             tips=0,
+    #             _memo="",
+    #         )
+    #     )
+    #     keypair = Keypair.create_from_mnemonic(MNEMONIC)
+    #     extrinsic = crust.create_signed_extrinsic(
+    #         call=call,
+    #         keypair=keypair,
+    #     )
+    #     receipt = crust.submit_extrinsic(extrinsic, wait_for_finalization=True)
+    #     update_launch_trace(record_id, {'crust_tx_id': receipt.extrinsic_hash})
+    # except Exception as e:
+    #     print(f"Crust Network exception: {e=}")
 
     # Upload to Estuary Filecoin node
     try:
@@ -179,7 +193,7 @@ class DataRecorder:
             video_url = VIDEOSERVER_URL + "video"
             result_image_name = "result.jpg"
             result_drawing_name = "drawing.jpg"
-            result_nft_name = "AUSTIN.jpg"
+            result_nft_name = "XMASS.jpg"
             self.video_recorder = subprocess.Popen(
                 ["python3.8", "video_recorder.py", "--video_url={}".format(video_url),
                  "--output_file={}/{}/{}".format(TRACES_DIR, self.record_folder_name,
