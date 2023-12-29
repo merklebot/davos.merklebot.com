@@ -6,7 +6,7 @@ import numpy as np
 
 
 def make_nft_card(drawing, nft_for_neon):
-    template = cv2.imread("NFT_HAPPY_HOLIDAY.jpeg") if nft_for_neon == "false" else cv2.imread("NFT_SPOT_Neon.png")
+    template = cv2.imread("NFT_HAPPY_HOLIDAY.jpg") if nft_for_neon == "false" else cv2.imread("NFT_SPOT_Neon.png")
     t_w, t_h, _ = template.shape
     mask_template = np.ones((t_h, t_w)) * 255
 
