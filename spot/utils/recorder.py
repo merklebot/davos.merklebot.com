@@ -86,7 +86,7 @@ def after_session_complete(
         return
 
     try:
-        car_url = "https://merklebot.mypinata.cloud/ipfs/{}?format=car&download=true".format(ipfs_cid)
+        car_url = "https://api.merklebot.com/ipfsgateway/ipfs/{}?format=car&download=true".format(ipfs_cid)
         res_car = requests.get(car_url)
         web3_storage_resp = requests.post("https://api.web3.storage/car", data=res_car.content,
                                           headers={"Authorization": f"Bearer {WEB3_STORAGE_API_KEY}"})
@@ -94,7 +94,7 @@ def after_session_complete(
     except Exception as e:
         print(f'web3 storage upload error: {e}')
     nft_order = create_halloween_nft_order(customer_address=sender, launch_tx_hash=launch_event_id,
-                                           image_url=f"https://merklebot.mypinata.cloud/ipfs/{ipfs_cid}/{record_folder_name}/AUSTIN.jpg")
+                                           image_url=f"https://api.merklebot.com/ipfsgateway/ipfs/{ipfs_cid}/{record_folder_name}/XMASS.jpg")
     update_launch_trace(record_id, {'nft_order_id': nft_order["id"]})
     datalog_extrinsic_hash = record_datalog(ipfs_cid)
     update_launch_trace(record_id, {'datalog_tx_id': datalog_extrinsic_hash})
