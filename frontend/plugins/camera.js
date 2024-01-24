@@ -9,7 +9,7 @@ const spotClient = axios.create({
 })
 
 export const getAuthToken = async (accountAddress) => {
-  const resp = await spotClient.post('token', {
+  const resp = await client.post('token', {
     account: accountAddress
   })
 
