@@ -3,6 +3,7 @@ FROM ros:melodic-ros-base-bionic
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
+
 RUN DEBIAN_FRONTEND=noninteractive apt-get -yqq update && \
     apt-get install -yqq software-properties-common && \
     add-apt-repository ppa:deadsnakes/ppa && \
@@ -15,8 +16,8 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -yqq update && \
         ssh \
         libssl-dev \
         pkg-config \
-        python3.8-full \
-        python3.8-dev \
+        python3.8 \
+        python3.8 \
         ffmpeg  \
         libsm6 \
         xvfb \
@@ -24,8 +25,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -yqq update && \
         freeglut3-dev \
         libxext6 && \
     apt-get clean && \
-    rm -rf /var/lib/apt/lists/* && \
-    python3.8 -m ensurepip --upgrade
+    rm -rf /var/lib/apt/lists/*
 
 ENV RUSTUP_HOME=/rust
 ENV CARGO_HOME=/cargo
@@ -38,6 +38,10 @@ ENV PATH="/root/.cargo/bin:${PATH}"
 WORKDIR /spot.merklebot.com/spot
 
 COPY requirements.txt requirements.txt
+
+RUN add-apt-repository universe
+RUN apt-get update
+RUN apt-get -y install python3-pip
 RUN python3.8 -m pip install --upgrade pip
 RUN python3.8 -m pip install -r requirements.txt
 COPY . .
