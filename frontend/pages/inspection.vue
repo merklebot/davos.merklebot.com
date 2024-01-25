@@ -2,15 +2,6 @@
   <div>
     <main class="bg-gray-800 font-mono">
       <div class="z-20 container mx-auto flex flex-row flex-wrap justify-center">
-        <div class="basis-5/12">
-          <div v-if="spotConnected===false">
-            <input v-model="spotUrl">
-            <button @click="connectToSpot">
-              Set url
-            </button>
-          </div>
-          <InspectionRobotStatePanel />
-        </div>
 
         <div class="basis-7/12">
           <InspectionControlsBlock />
